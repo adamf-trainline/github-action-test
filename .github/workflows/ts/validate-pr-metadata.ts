@@ -1,17 +1,15 @@
-module.exports = async ({github, context, core, glob, io, exec, require}, run_id) => {
-  const PR_TITLE_REGEX        = new RegExp(core.getInput('PR_TITLE_REGEX'))
-  const BODY_REGEX            = new RegExp(core.getInput('BODY_REGEX'))
-  const BLOCKING_TITLE_REGEX  = new RegExp(core.getInput('BLOCKING_TITLE_REGEX'))
+module.exports = async ({github, context, core, glob, io, exec, require}, run_id, title_regex, body_regex, blocking_regex, pull_request) => {
+  const PR_TITLE_REGEX        = new RegExp(title_regex)
+  const BODY_REGEX            = new RegExp(body_regex)
+  const BLOCKING_TITLE_REGEX  = new RegExp(blocking_regex)
 
   const title =
-    github.context.payload &&
-    github.context.payload.pull_request &&
-    github.context.payload.pull_request.title
+    pull_request &&
+    pull_request.title
 
   const body =
-    github.context.payload &&
-    github.context.payload.pull_request &&
-    github.context.payload.pull_request.summary
+    pull_request &&
+    pull_request.summary
 
   core.info(title)
   core.info(body)
@@ -30,16 +28,14 @@ module.exports = async ({github, context, core, glob, io, exec, require}, run_id
   error_map
     .map(elem => {
       if (elem['value'] === false) { 
-        error = error.concat(`${error.length > 0 ? ' and ' : ''}${elem['error']}`); 
+        error = error.concat(`${error.length > 0 ? ' and ' : ''}${elem['error']}`);
       }
     })
 
   if (error.length > 0) {
-    core.setFailed(
-      error
-    )
+    core.setFailed(error)
   }
 
-  return result.data;
+  return true;
 };
 
