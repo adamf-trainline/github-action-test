@@ -13,10 +13,14 @@ jobs:
     name: Auto-update
     runs-on: ubuntu-latest
     steps:
+      - name: Update ${{ github.ref }} branch in ${{ github.repository }} repository.
       - uses: tibdex/auto-update@v2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: dylanvann/check-pull-request-title@v0.1.14
-        with:
-          pattern: '^\[?([a-zA-Z]+-\d+)\]?.*$'
 
+      - name: Validate ${{ github.ref }} has correctly formatted title and body.
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const script = require('././github/workflows/ts/validate-pr-metadata.ts');
+            return await script({github, context}, 'Validating PR Metadata');
