@@ -14,12 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Update ${{ github.ref }} branch in ${{ github.repository }} repository.
-      - uses: tibdex/auto-update@v2
+        uses: tibdex/auto-update@v2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Validate ${{ github.ref }} has correctly formatted title and body.
-      - uses: actions/github-script@v6
+        uses: actions/github-script@v6
         with:
           script: |
             const script = require('././github/workflows/ts/validate-pr-metadata.ts');
