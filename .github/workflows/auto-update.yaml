@@ -16,7 +16,7 @@ jobs:
       - uses: tibdex/auto-update@v2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: dylanvann/check-pull-request-title@v1
+      - uses: dylanvann/check-pull-request-title@v0.1.14
         with:
           pattern: '^\[?([a-zA-Z]+-\d+)\]?.*$'
 
