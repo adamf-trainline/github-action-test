@@ -22,5 +22,5 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const script = require('././github/workflows/ts/validate-pr-metadata.ts');
+            const script = require('./.github/workflows/ts/validate-pr-metadata.ts');
             return await script({github, context}, 'Validating PR Metadata');
