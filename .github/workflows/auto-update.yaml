@@ -16,6 +16,10 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            const pr_title_regex = /^\[?([a-zA-Z]+-\d+)\]?.*$/gm;
+            const body_regex = '';
+            const blocking_title_regex = /WIP/;
+
             const pull_request = context.payload.pull_request;
             const script = require('./.github/workflows/ts/validate-pr-metadata.ts');
-            return await script({github, context, core}, 'Validating PR Metadata', /^\[?([a-zA-Z]+-\d+)\]?.*$/gm, '', /WIP/, pull_request);
+            return await script({github, context, core}, 'Validating PR Metadata', pr_title_regex, body_regex, blocking_title_regex, pull_request);
