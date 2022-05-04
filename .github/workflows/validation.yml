@@ -22,9 +22,9 @@ jobs:
 
             const pull_request = context.payload.pull_request;
 
-            const PR_TITLE_REGEX        = new RegExp(title_regex)
+            const PR_TITLE_REGEX        = new RegExp(pr_title_regex)
             const BODY_REGEX            = new RegExp(body_regex)
-            const BLOCKING_TITLE_REGEX  = new RegExp(blocking_regex)
+            const BLOCKING_TITLE_REGEX  = new RegExp(block_title_regex)
 
             const title =
               pull_request &&
